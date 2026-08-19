@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+float convertTemperature(float celsius, char unit)
+{
+    if(unit=='F')
+    {
+    return (celsius*(9.00/5.00)+32);
+    } else if(unit=='K')
+            {
+            return celsius + 273.15;
+            } else return -1;
+}
+
+int main() {
+    float temp;
+    char u;
+    scanf("%f", &temp);
+    scanf(" %c", &u);
+    
+    float final=convertTemperature(temp, u);
+    if(final==-1)
+    {
+        printf("Invalid unit");
+    } else {printf("Converted temperature: %.2f", final);}
+    
+    return 0;
+}
