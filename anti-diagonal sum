@@ -1,0 +1,41 @@
+#include <stdio.h>
+
+void processMatrix(int matrix[][3], int size) {
+    int total_sum=0;
+    int main_diagonal_sum=0;
+    int anti_diagonal_sum=0;
+    
+    for (int i=0; i<size; i++)
+    {
+        for(int j=0; j<size; j++)
+        {
+            int value=matrix[i][j];
+            total_sum+=value;
+            if(i==j)
+            {
+                main_diagonal_sum+=value;
+            }
+            if (i+j==(size-1))
+            {
+                anti_diagonal_sum+=value;
+            }
+        }
+    }
+    
+    printf("Sum of all elements: %d\n", total_sum);
+    printf("Sum of main diagonal: %d\n", main_diagonal_sum);
+    printf("Sum of anti-diagonal: %d\n", anti_diagonal_sum);
+
+}
+
+int main() {
+    int matrix[3][3] = {
+        {1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}
+    };
+    
+    processMatrix(matrix, 3);
+    
+    return 0;
+}
