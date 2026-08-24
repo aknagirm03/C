@@ -1,0 +1,167 @@
+#include <stdio.h>
+
+int T, M;
+int peaks=0;
+int storage[100][2];
+
+int main() {
+    // Read dimensions
+    if (scanf("%d %d", &T, &M) != 2) {
+        return 1;
+    } //printf("%d %d\n", T, M);
+
+    int grid[T][M];
+    for(int i=0; i<T; i++)
+    {
+        for(int j=0; j<M; j++)
+        {
+            scanf("%d", &grid[i][j]);
+            //printf("%d ", grid[i][j]);
+        } //printf("\n");
+    }
+    
+    for(int i=0; i<T; i++) {
+        for(int j=0; j<M; j++)
+        {
+            if(i==0 && j==0) 
+            {
+                if((grid[0][0] > grid[0][1]) &&
+                    (grid[0][0] > grid[1][1]) &&
+                    (grid[0][0] > grid[1][0]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+            
+            if(i==0)
+            {
+                if((grid[0][j] > grid[0][j-1]) &&
+                    (grid[0][j] > grid[1][j-1]) &&
+                    (grid[0][j] > grid[1][j]) &&
+                    (grid[0][j] > grid[1][j+1]) &&
+                    (grid[0][j] > grid[0][j+1]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+            
+            if((i==0)&&(j==M-1))
+            {
+                if((grid[0][M-1] > grid[0][M-2]) &&
+                    (grid[0][M-1] > grid[1][M-2]) &&
+                    (grid[0][M-1] > grid[1][M-1]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+            
+            if(j==0)
+            {
+                if((grid[i][0] > grid[i-1][0]) &&
+                    (grid[i][0] > grid[i-1][1]) &&
+                    (grid[i][0] > grid[i][1]) &&
+                    (grid[i][0] > grid[i+1][1]) &&
+                    (grid[i][0] > grid[i+1][0]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+            
+            if(i, j)
+            {
+                if((grid[i][j] > grid[i-1][j-1]) &&
+                    (grid[i][j] > grid[i-1][j]) &&
+                    (grid[i][j] > grid[i-1][j+1]) &&
+                    (grid[i][j] > grid[i][j-1]) &&
+                    (grid[i][j] > grid[i][j+1]) &&
+                    (grid[i][j] > grid[i+1][j-1]) &&
+                    (grid[i][j] > grid[i+1][j]) &&
+                    (grid[i][j] > grid[i+1][j+1]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+            
+            if(j==(M-1))
+            {
+                if((grid[i][M-1] > grid[i-1][M-1]) &&
+                    (grid[i][M-1] > grid[i-1][M-2]) &&
+                    (grid[i][M-1] > grid[i][M-2]) &&
+                    (grid[i][M-1] > grid[i+1][M-2]) &&
+                    (grid[i][M-1] > grid[i+1][M-1]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+            
+            if((i==T-1)&&(j==0))
+            {
+                if((grid[T-1][0] > grid[T-1][1]) &&
+                    (grid[T-1][0] > grid[T-2][1]) &&
+                    (grid[T-1][0] > grid[T-2][0]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+            
+            if(i==(T-1))
+            {
+                if((grid[T-1][j] > grid[T-1][j-1]) &&
+                    (grid[T-1][j] > grid[T-2][j-1]) &&
+                    (grid[T-1][j] > grid[T-2][j]) &&
+                    (grid[T-1][j] > grid[T-2][j+1]) &&
+                    (grid[T-1][j] > grid[T-1][j+1]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+            
+            if((i==(T-1))&&(j==M-1))
+            {
+                if((grid[T-1][M-1] > grid[T-2][M-1]) &&
+                    (grid[T-1][M-1] > grid[T-2][M-2]) &&
+                    (grid[T-1][M-1] > grid[T-1][M-2]))
+                {
+                    //printf("%d %d\n", i, j);
+                    storage[peaks][0] = i;
+                    storage[peaks][1] = j;
+                    peaks++;
+                }
+            }
+        }
+    }
+    
+    //Print the total count of peaks.
+    printf("%d\n", peaks);
+    
+    for(int i=0; i<peaks; i++)
+    {
+        printf("%d %d\n", storage[i][0], storage[i][1]);
+    }
+    
+    return 0;
+}
