@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+//Define the Contact struct here
+struct Contact {
+    char name[50];
+    char phone[20];
+    char email[40];
+    int age;
+};
+
+//Create functions
+struct Contact *createContact()
+{
+    struct Contact *contactPtr;
+    contactPtr = malloc(sizeof(struct Contact));
+    
+    if(contactPtr==NULL) {printf("Memory allocation failed\n"); return NULL;}
+    
+    contactPtr->name[0] = '\0';
+    contactPtr->phone[0] = '\0';
+    contactPtr->email[0] = '\0';
+    contactPtr->age = 0;
+    
+    return contactPtr;
+}
+
+void populateContact(struct Contact *contactPtr)
+{
+    printf("Enter name: Enter phone: Enter email: Enter age: ");
+    scanf("%s %s %s %d", contactPtr->name, contactPtr->phone, contactPtr->email, &contactPtr->age);
+    
+    if((contactPtr->age<0)||(contactPtr->age>120))
+    {
+        printf("Invalid age\n"); return;
+    }
+    
+    int hehe = strlen(contactPtr->phone);
+    if(hehe<10)
+    {
+        printf("Invalid phone number\n"); return;
+    }
+    
+    printf("Contact populated successfully\n");
+}
+
+int main() {
+    struct Contact *contactPtr = createContact();
+    if(contactPtr==NULL) {printf("Failed to create contact\n"); return -1;}
+    
+    populateContact(contactPtr);
+    printf("Contact Information:\nName: %s\nPhone: %s\nEmail: %s\nAge: %d\n", contactPtr->name, contactPtr->phone, contactPtr->email, contactPtr->age);
+    free(contactPtr);
+    printf("Contact deleted successfully\n");
+    
+    return 0;
+}
