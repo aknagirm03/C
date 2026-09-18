@@ -1,0 +1,105 @@
+#include <stdio.h>
+#include <string.h>
+
+//Write your extractWord function here
+int extractWord(char *sentence, int startIndex, char *word)
+{
+    int extractIndex;
+    for(int i=startIndex; i<=strlen(sentence); i++)
+    {
+        *word = sentence[i];
+        if((sentence[i]==' ')||(sentence[i]=='\0'))
+        {
+            extractIndex = i;
+            *word = '\0';
+            return extractIndex;
+        }
+        word++;
+    }
+    
+}
+
+//Write your countWordOccurrences function here
+int countWordOccurrences(char *sentence, char *targetWord)
+{
+    int sentLen = strlen(sentence);
+    char word[sentLen];
+    int times = 0;
+    
+    for(int i=0; i<sentLen; i++)
+    {
+        int EI = extractWord(sentence, i, word);
+        int compare = strcmp(word, targetWord);
+        if(compare==0)
+        {
+            times++;
+        }
+        i = EI;
+    }
+    return times;
+}
+
+//Write your analyzeText function here
+int analyzeText(char *sentence)
+{
+    int noOfwords = 1;
+    for(int i=0; i<strlen(sentence); i++)
+    {
+        if(sentence[i]==' ')
+        {
+            noOfwords++;
+            
+            if(sentence[i-1]==sentence[i])
+            {
+                noOfwords--;
+            }
+        }
+    }
+    return noOfwords;
+}
+
+int main() {
+    char inputSentence[200];
+    char searchWord[50];
+    
+    // Read input sentence
+    fgets(inputSentence, sizeof(inputSentence), stdin);
+    
+    // Remove newline character if present
+    inputSentence[strcspn(inputSentence, "\n")] = '\0';
+    
+    // Read search word
+    scanf("%s", searchWord);
+    
+    // Call analyzeText function and store total word count
+    int totalWords = analyzeText(inputSentence);
+    printf("Total words: %d\n", totalWords);
+    
+    // Call countWordOccurrences function and store occurrences
+    int occurrences = countWordOccurrences(inputSentence, searchWord);
+    printf("Occurrences of '%s': %d\n", searchWord, occurrences);
+    
+    // Calculate frequency percentage
+    float frequency = ((float)occurrences/(float)totalWords)*100;
+    printf("Frequency: %.1f%%\n", frequency);
+    
+    // Determine frequency category
+    /* if(frequency>50.0) {printf("Category: Frequent\n");}
+    else if(frequency>20.0) {printf("Category: Common\n");}
+    else if(frequency>0.0) {printf("Category: Rare\n");}
+    else {printf("Category: Not found\n");}*/
+    
+    char *category;
+    if(frequency>50.0) {category = "Frequent\n";}
+    else if(frequency>20.0) {category = "Common\n";}
+    else if(frequency>0.0) {category = "Rare\n";}
+    else {category = "Not found\n";}
+    
+    /* Output results in the required format
+    printf("Total words: %d\n", totalWords);
+    printf("Occurrences of '%s': %d\n", searchWord, occurrences);
+    printf("Frequency: %.1f%%\n", frequency); */
+    printf("Category: %s\n", category);
+    
+    return 0;
+}
