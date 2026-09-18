@@ -1,0 +1,96 @@
+#include <stdio.h>
+#include <string.h>
+
+//Define the Product struct here
+struct Product {
+    char name[30];
+    float price;
+    int stock;
+};
+
+//Implement the findMostExpensive function here
+int findMostExpensive(struct Product inventory[], int size)
+{
+    int highestindex = 0;
+    int highest = inventory[0].price;
+    for(int i=1; i<size; i++)
+    {
+        if(inventory[i].price > highest)
+        {
+            highestindex = i;
+            highest = inventory[i].price;
+        }
+    }
+    return highestindex;
+}
+
+//Implement the calculateTotalValue function here
+float calculateTotalValue(struct Product inventory[], int size)
+{
+    float value=0;
+    float totalval=0;
+    for(int i=0; i<size; i++)
+    {
+        value = inventory[i].price * inventory[i].stock;
+        totalval += value;
+    }
+    return totalval;
+}
+
+//Implement the findLowStock function here
+int findLowStock(struct Product inventory[], int size, int threshold)
+{
+    int count=0;
+    for(int i=0; i<size; i++)
+    {
+        if(inventory[i].stock < threshold)
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    // Create array of 3 products
+    struct Product inventory[3];
+    
+    // Read input for each product
+    for (int i = 0; i < 3; i++) {
+        scanf("%s", inventory[i].name);
+        scanf("%f", &inventory[i].price);
+        scanf("%d", &inventory[i].stock);
+    }
+    
+    //Print each product's information
+    for(int i=0; i<3; i++) {
+        printf("Product %d: %s - Price: %.2f, Stock: %d\n", i, inventory[i].name, inventory[i].price, inventory[i].stock);
+    }
+    
+    //Find and print the most expensive product
+    int index = findMostExpensive(inventory, 3);
+    printf("Most expensive product: %s\n", inventory[index].name);
+    
+    //Calculate and print total inventory value
+    float totalvalue = calculateTotalValue(inventory, 3);
+    printf("Total inventory value: %.2f\n", totalvalue);
+    
+    // Read low stock threshold
+    int threshold;
+    scanf("%d", &threshold);
+    
+    //Find and print products with low stock
+    int needs = findLowStock(inventory, 3, threshold);
+    printf("Products with low stock: %d\n", needs);
+    
+    //Check if most expensive product is well stocked
+    if(inventory[index].stock < 10)
+    {
+        printf("Most expensive product needs restocking\n");
+    } else if(inventory[index].stock >= 10)
+            {
+                printf("Most expensive product is well stocked\n");
+            }
+    
+    return 0;
+}
