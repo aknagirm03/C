@@ -87,7 +87,7 @@ int main() {
     /* if(frequency>50.0) {printf("Category: Frequent\n");}
     else if(frequency>20.0) {printf("Category: Common\n");}
     else if(frequency>0.0) {printf("Category: Rare\n");}
-    else {printf("Category: Not found\n");}*/
+    else {printf("Category: Not found\n");} */
     
     char *category;
     if(frequency>50.0) {category = "Frequent\n";}
